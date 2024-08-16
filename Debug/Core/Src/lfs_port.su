@@ -1,0 +1,5 @@
+lfs_port.c:17:5:lfs_spi_flash_init	16	static
+lfs_port.c:39:5:lfs_spi_flash_read	24	static
+lfs_port.c:47:5:lfs_spi_flash_prog	24	static
+lfs_port.c:56:5:lfs_spi_flash_erase	16	static
+lfs_port.c:63:5:lfs_spi_flash_sync	16	static
