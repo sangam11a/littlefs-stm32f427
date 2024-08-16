@@ -256,14 +256,23 @@ nor_err_e NOR_Init(nor_t *nor){
 	}
 
 	nor->info.u64UniqueId = _nor_ReadUniqID(nor);
-	nor->info.u32BlockCount = NOR_IDS_GetQtdBlocks(nor->info.u32JedecID);
+//	nor->info.u32BlockCount = NOR_IDS_GetQtdBlocks(nor->info.u32JedecID);
+//
+//	nor->info.u16PageSize = NOR_PAGE_SIZE;
+//	nor->info.u16SectorSize = NOR_SECTOR_SIZE;
+//	nor->info.u32BlockSize = NOR_BLOCK_SIZE;
+//	nor->info.u32SectorCount = nor->info.u32BlockCount * (NOR_BLOCK_SIZE / NOR_SECTOR_SIZE);
+//	nor->info.u32PageCount = (nor->info.u32SectorCount * nor->info.u16SectorSize) / nor->info.u16PageSize;
+//	nor->info.u32Size = (nor->info.u32SectorCount * nor->info.u16SectorSize);
 
-	nor->info.u16PageSize = NOR_PAGE_SIZE;
-	nor->info.u16SectorSize = NOR_SECTOR_SIZE;
-	nor->info.u32BlockSize = NOR_BLOCK_SIZE;
-	nor->info.u32SectorCount = nor->info.u32BlockCount * (NOR_BLOCK_SIZE / NOR_SECTOR_SIZE);
-	nor->info.u32PageCount = (nor->info.u32SectorCount * nor->info.u16SectorSize) / nor->info.u16PageSize;
-	nor->info.u32Size = (nor->info.u32SectorCount * nor->info.u16SectorSize);
+		nor->info.u32BlockCount = NOR_IDS_GetQtdBlocks(nor->info.u32JedecID);
+
+		nor->info.u16PageSize = NOR_PAGE_SIZE;
+		nor->info.u16SectorSize = NOR_SECTOR_SIZE;
+		nor->info.u32BlockSize = NOR_BLOCK_SIZE;
+		nor->info.u32SectorCount = nor->info.u32BlockCount * (NOR_BLOCK_SIZE / NOR_SECTOR_SIZE);
+		nor->info.u32PageCount = (nor->info.u32SectorCount * nor->info.u16SectorSize) / nor->info.u16PageSize;
+		nor->info.u32Size = (nor->info.u32SectorCount * nor->info.u16SectorSize);
 
 	_nor_ReadStatusRegister(nor, _SELECT_SR1);
 	_nor_ReadStatusRegister(nor, _SELECT_SR1);

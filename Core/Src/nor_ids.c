@@ -27,7 +27,9 @@ nor_model_e NOR_IDS_Interpret_Model (uint32_t JedecID){
 		return ((JedecID >> 8) & 0xFFFF);
 		break;
 
-	case    MANUF_MT25QL: return MANUF_MT25QL; break;
+	case    MANUF_MT25QL:
+		return ((0x9E >> 8) & 0xFFFF);
+		break;
 	}
 }
 
@@ -39,6 +41,15 @@ uint32_t NOR_IDS_GetQtdBlocks(uint32_t JedecID){
 	switch (Manuf){
 	case	MANUF_ADESTO:
 	case	MANUF_MICROCHIP:
+	case    MANUF_MT25QL:
+		density = ((0x9E >> 16) & 0xFF);
+		density -= 0x11;
+		blocks = 2;
+		// yes, I'm doing this only to prevent the use of math lib
+		for (i=0 ; i<density ; i++){
+			blocks *= 2;
+		}
+	break;
 	default:
 		blocks = 0;
 		break;

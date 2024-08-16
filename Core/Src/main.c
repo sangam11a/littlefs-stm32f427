@@ -114,7 +114,7 @@ void read_file_from_littlefs(lfs_t *lfs, const char *filename) {
     }
 
     // Allocate a buffer to hold the file data
-    char *buffer = malloc(file_size);
+    float *buffer = malloc(file_size);
     if (buffer == NULL) {
         printf("Failed to allocate buffer for reading file: %s\n", filename);
         lfs_file_close(lfs, &file);
@@ -130,7 +130,7 @@ void read_file_from_littlefs(lfs_t *lfs, const char *filename) {
         // Successfully read the file, print its content (if it's text data)
         HAL_UART_Transmit(&huart7, buffer, (int)bytes_read,1000);
         for(int i=0;i<(int) bytes_read;){
-        	printf(buffer[i]);
+//        	printf(buffer[i]);
         	x=buffer[i];
         	i++;
         }
@@ -283,7 +283,7 @@ void __init_littefs(){
 		LfsConfig.read_size = 256;
 		LfsConfig.prog_size = 256;
 		LfsConfig.block_size = Nor.info.u16SectorSize;
-		LfsConfig.block_count = Nor.info.u32SectorCount;
+		LfsConfig.block_count =  16384;//Nor.info.u32SectorCount;
 		LfsConfig.cache_size = Nor.info.u16PageSize;
 		LfsConfig.lookahead_size = 8;//Nor.info.u32SectorCount/8;
 		LfsConfig.block_cycles = 15000;
@@ -423,10 +423,12 @@ int main(void)
   list_files(&Lfs);
 //  char path[200];
   char txt[]="sangam is writing it manually";
+
+	__init_littefs();
   list_files_with_size(&Lfs, "/");
-//  		  lfs_file_open(&Lfs, &File, "satHealth.txt", LFS_O_RDWR  |LFS_O_APPEND);
-//  		  lfs_file_write(&Lfs, &File, &txt, sizeof(txt));
-//  		  lfs_file_close(&Lfs, &File);
+  		  lfs_file_open(&Lfs, &File, "satHealth.txt", LFS_O_RDWR  |LFS_O_APPEND);
+  		  lfs_file_write(&Lfs, &File, &txt, sizeof(txt));
+  		  lfs_file_close(&Lfs, &File);
   read_file_from_littlefs(&Lfs, "satHealth.txt");
 //  read_file_from_littlefs(&Lfs, "sat_health.txt");
   read_file_from_littlefs(&Lfs, "flags.txt");

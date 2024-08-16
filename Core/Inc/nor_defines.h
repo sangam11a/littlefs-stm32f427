@@ -71,8 +71,8 @@
 
 // Flash Memory Global parameters
 #define NOR_PAGE_SIZE				0x100
-#define NOR_SECTOR_SIZE				0x1000
-#define NOR_BLOCK_SIZE				0x10000
+#define NOR_SECTOR_SIZE				0x1000//4096
+#define NOR_BLOCK_SIZE				0x10000 //65536
 
 #define NOR_EXPECT_4K_ERASE_TIME	400000
 #define NOR_EXPECT_32K_ERASE_TIME	1600000
